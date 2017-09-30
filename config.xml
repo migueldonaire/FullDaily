@@ -90,4 +90,5 @@
     <plugin name="com.synconset.imagepicker" spec="~2.1.8">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Permite la seleccion de imagenes" />
     </plugin>
+    <engine name="android" spec="~6.2.3" />
 </widget>

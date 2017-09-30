@@ -7,6 +7,7 @@ import { ToastController } from 'ionic-angular';
 import {SignInWithEmailCuProvider} from "../../providers/interactor/sign-in-with-email-cu";
 import {HomePage} from "../home/home";
 import {HistoryPage} from "../history/history";
+import {TabsPage} from "../tabs/tabs";
 
 @IonicPage()
 @Component({
@@ -32,7 +33,7 @@ export class SignInPage {
     this.signupwithEmailCu.execute(user).then(
       value=>{
         console.log(value);
-        this.app.getRootNav().setRoot(HomePage);
+        this.app.getRootNav().setRoot(TabsPage);
       }
     ).catch(
       error=>{
@@ -46,7 +47,7 @@ export class SignInPage {
     let user = new UserCredentials(this.email, this.password);
     this.signInWithEmailCu.execute(user).then(
       value=>{
-        this.app.getRootNav().setRoot(HistoryPage);
+        this.app.getRootNav().setRoot(TabsPage);
       }
     ).catch(
       error=>{

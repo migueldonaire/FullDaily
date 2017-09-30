@@ -34,6 +34,10 @@ import { CreateHistoryFromGaleryCuProvider } from '../providers/interactor/creat
 import { GaleryServiceProvider } from '../providers/galery/galery-service';
 
 import { ImagePicker } from '@ionic-native/image-picker';
+import {SuperTabsModule} from "ionic2-super-tabs";
+import {ListHistorysPage} from "../pages/list-historys/list-historys";
+import {TabsPage} from "../pages/tabs/tabs";
+import { GetAllHistorysCuProvider } from '../providers/interactor/get-all-historys-cu';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDSTvOqqF1TvYzbOARf0qlBHKgDLsH-0AQ",
@@ -49,7 +53,9 @@ export const firebaseConfig = {
     MyApp,
     HomePage,
     SignInPage,
-    HistoryPage
+    HistoryPage,
+    ListHistorysPage,
+    TabsPage
   ],
   imports: [
     HttpModule,
@@ -58,14 +64,17 @@ export const firebaseConfig = {
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    SuperTabsModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     SignInPage,
-    HistoryPage
+    HistoryPage,
+    ListHistorysPage,
+    TabsPage
   ],
   providers: [
     StatusBar,
@@ -90,7 +99,8 @@ export const firebaseConfig = {
     RequestStorageFirebaseProvider,
     CreateHistoryFromGaleryCuProvider,
     GaleryServiceProvider,
-    CreateHistoryFromGaleryCuProvider
+    CreateHistoryFromGaleryCuProvider,
+    GetAllHistorysCuProvider
   ]
 })
 export class AppModule {}

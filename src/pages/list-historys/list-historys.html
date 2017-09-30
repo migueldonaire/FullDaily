@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>
+      Diario
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list *ngFor="let history of historys;">
+    <ion-item>
+      <ion-card>
+        <ion-card-header>
+          {{history.name}}
+          <ion-note item-end>{{history.date | date:'shortTime'}}</ion-note>
+        </ion-card-header>
+
+        <ion-card-content>
+          {{history.content}}
+        </ion-card-content>
+
+      </ion-card>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="chargeHistorys($event)" [enabled]="areMore">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

@@ -8,12 +8,13 @@ import {SignInPage} from "../pages/sign-in/sign-in";
 import {SignOutCuProvider} from "../providers/interactor/sign-out-cu";
 import { ToastController } from 'ionic-angular';
 import {HistoryPage} from "../pages/history/history";
+import {TabsPage} from "../pages/tabs/tabs";
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = HistoryPage;
+  rootPage: any = TabsPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController,
               private signOutCu: SignOutCuProvider,public toastCtrl: ToastController) {
