@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>SignIn</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <h1>Sign In with:</h1>
+  <button ion-button full icon-left><ion-icon name="logo-facebook"></ion-icon>Facebook</button>
+  <button ion-button full icon-left><ion-icon name="logo-google"></ion-icon>Google</button>
+  <button ion-button full icon-left><ion-icon name="logo-twitter"></ion-icon>Twitter</button>
+  <h1>Or with email:</h1>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="text" [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button full icon-left (click)="signIn()">SignIn</button>
+  <button ion-button full icon-left (click)="signUp()">SignUp</button>
+</ion-content>

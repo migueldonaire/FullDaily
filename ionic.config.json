@@ -1,0 +1,8 @@
+{
+  "name": "FullDaily",
+  "app_id": "9e0b8fff",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

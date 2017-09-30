@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>
+      History
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button icon-left (click)="addCamera()">
+    <ion-icon name="camera"></ion-icon>
+  </button>
+  <button ion-button icon-left>
+    <ion-icon name="image"></ion-icon>
+  </button>
+  <button ion-button icon-left>
+    <ion-icon name="videocam"></ion-icon>
+  </button>
+  <button ion-button icon-left (click)="addText()">
+    <ion-icon name="create"></ion-icon>
+  </button>
+  <button ion-button icon-left>
+    <ion-icon name="mic"></ion-icon>
+  </button>
+  <button ion-button full (click)="createHistory()">
+    Create new History
+  </button>
+  <ion-card>
+    <ion-card-header>
+      History
+      <ion-note item-end>{{today | date:'shortTime'}}</ion-note>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{text}}
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>
