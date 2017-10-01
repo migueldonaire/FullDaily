@@ -69,13 +69,13 @@ export class RequestDatabaseFirebaseProvider {
       (resolve, reject) => {
         this.db.list('history/' + keyUser, {
           query: {
-            limitToLast: 4,
+            limitToLast: 20,
             orderByKey: true,
             endAt: lastKey
           }
         }).subscribe(
           (value: any) => {
-            let list: DayHistory[] = [];
+            let list:  DayHistorySaved[] = [];
 
             if( lastKey ){
               value.pop();

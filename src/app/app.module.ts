@@ -38,6 +38,7 @@ import {SuperTabsModule} from "ionic2-super-tabs";
 import {ListHistorysPage} from "../pages/list-historys/list-historys";
 import {TabsPage} from "../pages/tabs/tabs";
 import { GetAllHistorysCuProvider } from '../providers/interactor/get-all-historys-cu';
+import {SearchPage} from "../pages/search/search";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDSTvOqqF1TvYzbOARf0qlBHKgDLsH-0AQ",
@@ -55,7 +56,8 @@ export const firebaseConfig = {
     SignInPage,
     HistoryPage,
     ListHistorysPage,
-    TabsPage
+    TabsPage,
+    SearchPage
   ],
   imports: [
     HttpModule,
@@ -74,7 +76,8 @@ export const firebaseConfig = {
     SignInPage,
     HistoryPage,
     ListHistorysPage,
-    TabsPage
+    TabsPage,
+    SearchPage
   ],
   providers: [
     StatusBar,

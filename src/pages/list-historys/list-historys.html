@@ -19,12 +19,14 @@
         </ion-card-header>
 
         <ion-card-content>
-          {{history.content}}
+          <div *ngIf="history.type == typeHistory.IMAGE"> <img [src]="history.content"></div>
+          <div *ngIf="history.type == typeHistory.TEXT"> {{history.content}}</div>
         </ion-card-content>
 
       </ion-card>
     </ion-item>
   </ion-list>
+
   <ion-infinite-scroll (ionInfinite)="chargeHistorys($event)" [enabled]="areMore">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>

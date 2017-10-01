@@ -7,6 +7,9 @@ import {CreateHistoryFromCameraCuProvider} from "../../providers/interactor/crea
 import {ImputMethod} from "../../enum/input-method";
 import {CreateHistoryFromGaleryCuProvider} from "../../providers/interactor/create-history-from-galery-cu";
 import {RequestDatabaseFirebaseProvider} from "../../providers/firebase/request-database-firebase";
+import {ImagePicker, ImagePickerOptions} from '@ionic-native/image-picker';
+
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @IonicPage()
 @Component({
@@ -14,19 +17,22 @@ import {RequestDatabaseFirebaseProvider} from "../../providers/firebase/request-
   templateUrl: 'history.html',
 })
 export class HistoryPage {
-  name:string="Sin nombre";
+  name: string = "Sin nombre";
   type: TypeHistory = TypeHistory.TEXT;
   content: string = "";
   today: Date = new Date();
   imput: ImputMethod = ImputMethod.NOTHING;
-  messageOk:string = "Historía añadida con éxito";
+  messageOk: string = "Historía añadida con éxito";
+  typeHistory:any=TypeHistory;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public alertCtrl: AlertController, private createHistoryFromTextCu: CreateHistoryFromTextCuProvider,
               private CreateHistoryFromCameraCu: CreateHistoryFromCameraCuProvider,
-              private CreateHistoryFromGaleryCu:CreateHistoryFromGaleryCuProvider,
+              private CreateHistoryFromGaleryCu: CreateHistoryFromGaleryCuProvider,
               public toastCtrl: ToastController,
-              private RequestDatabaseFirebase:RequestDatabaseFirebaseProvider) {
+              private RequestDatabaseFirebase: RequestDatabaseFirebaseProvider,
+              private imagePicker: ImagePicker,
+              private camera: Camera) {
   }
 
   ionViewDidLoad() {
@@ -40,7 +46,7 @@ export class HistoryPage {
       inputs: [
         {
           name: 'history',
-          placeholder: 'Querido diario...'
+          placeholder: 'Cuenta algo...'
         },
       ],
       buttons: [
@@ -64,7 +70,7 @@ export class HistoryPage {
     prompt.present();
   }
 
-  changeName(){
+  changeName() {
     let prompt = this.alertCtrl.create({
       title: 'Cambia el títutlo',
       inputs: [
@@ -89,12 +95,48 @@ export class HistoryPage {
     this.today = new Date();
     this.type = TypeHistory.IMAGE;
     this.imput = ImputMethod.CAMERA;
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      console.log(base64Image);
+      this.content = imageData;
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  addGalery() {
+    this.today = new Date();
+    this.type = TypeHistory.IMAGE;
+    this.imput = ImputMethod.GALERY;
+    let options: ImagePickerOptions = {
+      maximumImagesCount: 1,
+      quality: 40,
+      outputType: 1
+    };
+
+    this.imagePicker.getPictures(options).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+        console.log('Image URI: ' + results[i]);
+        this.content = results[i];
+      }
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   createHistory() {
     let dayHistory = new DayHistory(this.name, this.today.getTime(), null, this.type, this.content);
     console.log(dayHistory);
-    switch(this.imput) {
+    switch (this.imput) {
       case ImputMethod.TEXT:
         this.createHistoryFromTextCu.execute(dayHistory).then(
           value => {
@@ -137,7 +179,7 @@ export class HistoryPage {
     }
   }
 
-  presentToast(message:string) {
+  presentToast(message: string) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: 3000

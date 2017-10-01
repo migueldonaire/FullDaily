@@ -13,7 +13,7 @@
   <button ion-button icon-left (click)="addCamera()">
     <ion-icon name="camera"></ion-icon>
   </button>
-  <button ion-button icon-left>
+  <button ion-button icon-left (click)="addGalery()">
     <ion-icon name="image"></ion-icon>
   </button>
   <button ion-button icon-left>
@@ -25,9 +25,6 @@
   <button ion-button icon-left>
     <ion-icon name="mic"></ion-icon>
   </button>
-  <button ion-button full (click)="createHistory()">
-    Crea la historia
-  </button>
   <ion-card>
     <ion-card-header>
       <button ion-button clear style="text-transform: none;"  (click)="changeName()">{{this.name}}</button>
@@ -35,8 +32,13 @@
     </ion-card-header>
 
     <ion-card-content>
-      {{content}}
+      <div *ngIf="type == typeHistory.IMAGE"> <img [src]="'data:image/jpeg;base64,'+content"></div>
+      <div *ngIf="type == typeHistory.TEXT"> {{content}}</div>
     </ion-card-content>
 
   </ion-card>
+
+  <button ion-button full (click)="createHistory()">
+    Crea la historia
+  </button>
 </ion-content>

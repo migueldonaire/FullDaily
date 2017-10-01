@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {IonicPage, NavController, NavParams} from "ionic-angular";
 import {GetAllHistorysCuProvider} from "../../providers/interactor/get-all-historys-cu";
 import {DayHistorySaved} from "../../object/bo/day-history-saved";
+import {TypeHistory} from "../../enum/type-history";
 
 @IonicPage()
 @Component({
@@ -10,11 +11,13 @@ import {DayHistorySaved} from "../../object/bo/day-history-saved";
 })
 export class ListHistorysPage {
 
-  historys:DayHistorySaved[]=[];
+  historys:DayHistorySaved[];
   lastKey:string = undefined;
   areMore:boolean = true;
+  typeHistory:any=TypeHistory;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private getAllHistorysCu:GetAllHistorysCuProvider) {
+    this.historys=new Array();
   }
 
   ionViewWillEnter() {
@@ -22,13 +25,15 @@ export class ListHistorysPage {
     this.chargeHistorys(null);
   }
 
-  chargeHistorys($event){
-    if(this.historys.length>0){this.lastKey=this.historys[0].$key};
+  chargeHistorys(infiniteScroll:any){
+    if(this.historys.length>0){this.lastKey=this.historys[this.historys.length-1].$key};
     this.getAllHistorysCu.exexute(this.lastKey).then(
       value=>{
-        this.historys=value;
-        if(this.historys.length==0){
+        console.log(value);
+        this.historys = value;
+        if(value.length==0){
           this.areMore=false;
+          if(infiniteScroll!=null){ infiniteScroll.complete();}
         }else{
           this.areMore=true;
         }

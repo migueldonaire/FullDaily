@@ -1,6 +1,5 @@
-import {Injectable, Inject} from '@angular/core';
-import 'rxjs/add/operator/map';
-import {CameraServiceProvider} from "../camera/camera-service";
+import {Injectable, Inject} from "@angular/core";
+import "rxjs/add/operator/map";
 import {RequestStorageFirebaseProvider} from "../firebase/request-storage-firebase";
 import {DayHistory} from "../../object/bo/day-history";
 import {NativeStorageServiceProvider} from "../storage/native-storage";
@@ -12,8 +11,7 @@ import {RequestDatabaseFirebaseProvider} from "../firebase/request-database-fire
 @Injectable()
 export class CreateHistoryFromCameraCuProvider {
 
-  constructor(private cameraService: CameraServiceProvider,
-              private requestStorageFirebase: RequestStorageFirebaseProvider,
+  constructor(private requestStorageFirebase: RequestStorageFirebaseProvider,
               private requestDatabaseFirebase: RequestDatabaseFirebaseProvider,
               private nativeStorageService: NativeStorageServiceProvider,
               @Inject('LocationService') private locationService: LocationInterface) {
@@ -23,25 +21,17 @@ export class CreateHistoryFromCameraCuProvider {
   execute(dayHistory: DayHistory): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.cameraService.getImage().then(
-          dateImage => {
-            this.nativeStorageService.get(KeyStorage.USER_KEY.toString()).then(
-              key => {
-                this.locationService.getCurrentPosition().then(
-                  (location: LocationData) => {
-                    this.requestStorageFirebase.upImage(dayHistory.date.toString(), dateImage).then(
-                       url =>{
-                        let trueHistory = new DayHistory(dayHistory.name, dayHistory.date, location, dayHistory.type, url);
-                         this.requestDatabaseFirebase.addHistory(trueHistory, key).then(
-                           value => {
-                             resolve(value);
-                           }
-                         ).catch(
-                           error => {
-                             reject(error);
-                           }
-                         )
-                       }
+        this.nativeStorageService.get(KeyStorage.USER_KEY.toString()).then(
+          key => {
+            this.locationService.getCurrentPosition().then(
+              (location: LocationData) => {
+                this.requestStorageFirebase.upImage(dayHistory.date.toString(), dayHistory.content).then(
+                  url => {
+                    let trueHistory = new DayHistory(dayHistory.name, dayHistory.date, location, dayHistory.type, url);
+                    this.requestDatabaseFirebase.addHistory(trueHistory, key).then(
+                      value => {
+                        resolve(value);
+                      }
                     ).catch(
                       error => {
                         reject(error);
@@ -61,6 +51,7 @@ export class CreateHistoryFromCameraCuProvider {
             )
           }
         )
-      });
+      }
+    );
   }
 }

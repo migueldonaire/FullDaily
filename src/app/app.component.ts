@@ -14,7 +14,7 @@ import {TabsPage} from "../pages/tabs/tabs";
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = TabsPage;
+  rootPage: any = SignInPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private menuCtrl: MenuController,
               private signOutCu: SignOutCuProvider,public toastCtrl: ToastController) {

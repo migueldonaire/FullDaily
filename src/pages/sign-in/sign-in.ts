@@ -16,8 +16,8 @@ import {TabsPage} from "../tabs/tabs";
 })
 export class SignInPage {
 
-  email:string = "miquel.donaire@uji.es";
-  password:string= "contrasena";
+  email:string = "";
+  password:string= "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private signupwithEmailCu:SignupwithEmailCuProvider, public toastCtrl: ToastController,
